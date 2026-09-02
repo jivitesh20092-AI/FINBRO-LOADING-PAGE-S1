@@ -16,7 +16,7 @@ body {
 }
 
 /* Initial state - hidden before animation */
-#logoCircle, #brandName, #brandTagline, #chartContainer, #loadingStatus {
+#logoCircle, #brandName, #chartContainer, #loadingStatus {
     opacity: 0;
     transform: translateY(20px);
 }
@@ -71,15 +71,6 @@ body {
     letter-spacing: -1px;
 }
 
-#brandTagline {
-    font-size: 12px;
-    font-weight: 500;
-    color: #0a0a0a;
-    opacity: 0.6;
-    letter-spacing: 2px;
-    margin-top: 2px;
-}
-
 /* Chart area */
 #chartContainer {
     width: 100%;
@@ -90,14 +81,6 @@ body {
     border-radius: 8px;
     overflow: hidden;
     padding: 0;
-}
-
-#gridCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
 }
 
 #candles {
