@@ -6,7 +6,7 @@
 
 body {
     overflow: hidden;
-    background: #050505;
+    background: #f5c518;
 }
 
 #loadingScreen {
@@ -15,39 +15,94 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: #050505;
+    background: #f5c518;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     z-index: 1;
-    gap: 40px;
 }
 
-#logoContainer {
+#brandContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#logoCircle {
+    width: 90px;
+    height: 90px;
+    background: #0a0a0a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
     opacity: 0;
     transform: scale(0.5);
-    transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    z-index: 5;
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-#logoContainer.logo-visible {
+#logoCircle.logo-visible {
     opacity: 1;
     transform: scale(1);
 }
 
-#finbroLogo {
-    color: #ffffff;
-    font-size: 3rem;
+#fbLogo {
+    color: #f5c518;
+    font-family: Georgia, serif;
+    font-weight: bold;
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+
+#brandName {
+    color: #0a0a0a;
+    font-family: Georgia, serif;
+    font-size: 2.8rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.8s ease 0.3s;
+}
+
+#brandName.logo-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#brandTagline {
+    color: #0a0a0a;
     font-family: Arial, sans-serif;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    font-size: 0.85rem;
+    letter-spacing: 5px;
+    font-weight: bold;
+    margin-top: 6px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.8s ease 0.5s;
+}
+
+#brandTagline.logo-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 #chartContainer {
     position: relative;
-    width: 90%;
-    max-width: 600px;
-    height: 400px;
+    width: 85%;
+    max-width: 500px;
+    height: 220px;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: all 0.8s ease 0.7s;
+}
+
+#chartContainer.logo-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 #gridCanvas {
@@ -56,12 +111,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0;
-    transition: opacity 1.5s ease;
-}
-
-.grid-visible {
-    opacity: 1 !important;
+    opacity: 0.3;
 }
 
 #candles {
@@ -71,35 +121,37 @@ body {
     right: 0;
     bottom: 0;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
-    gap: 8%;
-    padding: 5% 10%;
+    gap: 12px;
+    padding: 10px 8%;
 }
 
 .candle-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     height: 100%;
-    width: 8%;
-    min-width: 20px;
+    width: 10%;
+    min-width: 18px;
     position: relative;
     opacity: 0;
+    transform: translateY(10px);
 }
 
 .candle-wrapper.animate {
-    animation: candleFadeIn 0.4s ease forwards;
+    animation: candleFadeIn 0.5s ease forwards;
 }
 
 .candle-wick {
     width: 2px;
-    background: #666;
+    background: #3a3a3a;
     position: absolute;
-    bottom: 50%;
+    top: 50%;
     height: 0;
-    transition: height 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform: translateY(-50%);
+    transition: height 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .candle-wick.complete {
@@ -108,67 +160,94 @@ body {
 
 .candle-body {
     width: 100%;
-    min-height: 4px;
-    max-height: 70%;
+    min-height: 3px;
+    max-height: 85%;
     border-radius: 2px;
-    position: relative;
-    opacity: 0;
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scaleY(0);
+    transform-origin: center;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .candle-body.complete {
-    opacity: 1;
-    transform: scaleY(1);
+    transform: translate(-50%, -50%) scaleY(1);
     height: var(--body-height);
 }
 
 .candle-body.green {
-    background: #26e07f;
-    box-shadow: 0 0 15px rgba(38, 224, 127, 0.3);
+    background: #1a9e4b;
+    border: 1px solid #15803d;
 }
 
 .candle-body.red {
-    background: #ff5b5b;
-    box-shadow: 0 0 15px rgba(255, 91, 91, 0.3);
+    background: #e03131;
+    border: 1px solid #c92a2a;
 }
 
-.candle-wrapper.highlight {
-    animation: chartGlow 1.5s ease forwards;
+.candle-body.yellow {
+    background: #fbbf24;
+    border: 1px solid #f59f00;
 }
 
 @keyframes candleFadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { 
+        opacity: 0; 
+        transform: translateY(10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
 }
 
-@keyframes chartGlow {
-    0% { filter: drop-shadow(0 0 0 rgba(38, 224, 127, 0)); }
-    50% { filter: drop-shadow(0 0 20px rgba(38, 224, 127, 0.3)); }
-    100% { filter: drop-shadow(0 0 0 rgba(38, 224, 127, 0)); }
-}
-
-#whiteOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #ffffff;
+#loadingStatus {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+    width: 85%;
+    max-width: 500px;
     opacity: 0;
-    z-index: 10;
-    pointer-events: none;
-    transition: opacity 1.2s ease-in-out;
+    transform: translateY(10px);
+    transition: all 0.8s ease 1s;
 }
 
-#whiteOverlay.active {
+#loadingStatus.logo-visible {
     opacity: 1;
+    transform: translateY(0);
 }
 
-.loading-text {
-    color: #666;
+#statusText {
+    color: #4a4a4a;
     font-family: Arial, sans-serif;
-    font-size: 0.9rem;
-    letter-spacing: 2px;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    transition: opacity 0.3s ease;
+}
+
+#loadingBarContainer {
+    width: 100%;
+    height: 3px;
+    background: rgba(10, 10, 10, 0.15);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+#loadingBar {
+    height: 100%;
+    width: 0%;
+    background: #0a0a0a;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+#percentage {
+    color: #0a0a0a;
+    font-family: Arial, sans-serif;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-top: 8px;
 }
