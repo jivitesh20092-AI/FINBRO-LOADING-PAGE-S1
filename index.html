@@ -3,19 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading...</title>
+    <title>Finbro - AI Analyzer</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="loadingScreen">
-        <div id="logoContainer">
-            <h1 id="finbroLogo">Finbro</h1>
+        <div id="brandContainer">
+            <div id="logoCircle">
+                <span id="fbLogo">FB</span>
+            </div>
+            <h1 id="brandName">Finbro</h1>
+            <p id="brandTagline">AI ANALYZER</p>
         </div>
+        
         <div id="chartContainer">
             <canvas id="gridCanvas"></canvas>
             <div id="candles"></div>
         </div>
-        <div id="whiteOverlay"></div>
+        
+        <div id="loadingStatus">
+            <p id="statusText">Analyzing market data…</p>
+            <div id="loadingBarContainer">
+                <div id="loadingBar"></div>
+            </div>
+            <p id="percentage">0%</p>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
